@@ -21,20 +21,20 @@ For Reference Only
 </a>
 
 ## Table of Contents
-### [Project 0](/Week%200/) - [Search](https://cs50.harvard.edu/web/2020/projects/0/search/)
-- [Search](/Week%200/Search)
+### [Project 0](/Project%200/) - [Search](https://cs50.harvard.edu/web/2020/projects/0/search/)
+- [Search](/Project%200/Search)
 
-### [Project 1](/Week%201/) - [Wiki](https://cs50.harvard.edu/web/2020/projects/1/wiki/)
-- [Wiki](/Week%201/Wiki)
+### [Project 1](/Project%201/) - [Wiki](https://cs50.harvard.edu/web/2020/projects/1/wiki/)
+- [Wiki](/Project%201/Wiki)
 
-### [Project 2](/Week%202/) - [Commerce](https://cs50.harvard.edu/web/2020/projects/2/commerce/)
-- [Commerce](/Week%202/Commerce)
+### [Project 2](/Project%202/) - [Commerce](https://cs50.harvard.edu/web/2020/projects/2/commerce/)
+- [Commerce](/Project%202/Commerce)
 
-### [Project 3](/Week%203/) - [Mail](https://cs50.harvard.edu/web/2020/projects/3/mail/)
-- [Mail](/Week%203/Mail)
+### [Project 3](/Project%203/) - [Mail](https://cs50.harvard.edu/web/2020/projects/3/mail/)
+- [Mail](/Project%203/Mail)
 
-### [Project 4](/Week%204/) - [Network](https://cs50.harvard.edu/web/2020/projects/4/network/)
-- [Network](/Week%204/Network)
+### [Project 4](/Project%204/) - [Network](https://cs50.harvard.edu/web/2020/projects/4/network/)
+- [Network](/Project%204/Network)
 
 ### [Final Project](/Final%20Project) - [Final Project Link](https://cs50.harvard.edu/web/2020/projects/final/capstone/)
 - [Final Project](/Final%20Project/Final%20Project)
