@@ -1,0 +1,280 @@
+body {
+    background: #202124;
+    color: white;
+    font-family: arial,sans-serif;
+}
+
+ul {
+    list-style-type: none;
+    overflow: hidden;
+    padding-inline-start: 0px!important;
+}
+
+li {
+    float: right;
+}
+
+li a {
+    color: white;
+    display: block;
+    text-align: center;
+    padding: 10px 10px;
+    text-decoration: none;
+    font-size:14px;
+}
+
+li a:hover {
+    text-decoration: underline;
+}
+
+.grid {
+    color: white;
+    height:23px;
+    position:relative;
+    bottom:4px;
+}
+
+.signbutton {
+    background-color: #4885ed;
+    color: #fff;
+    border:none;
+    border-radius:3px;
+    padding:7px 10px;
+    position:relative;
+    bottom:7px;
+    font-weight:bold;
+}
+
+
+.logo {
+    margin-top:200px;
+    margin-bottom:20px;
+}
+
+
+.bar {
+    margin:0 auto;
+    width:575px;
+    border-radius:30px;
+    background: #202124;
+    border:1px solid #5f6368;
+}
+
+
+.bar:hover {
+    background-color: #303134;
+    box-shadow: 0 1px 6px 0 #171717;
+}
+
+
+.bar:focus-within {
+    box-shadow: 1px 1px 8px 1px #5f6368;
+    outline:none;
+}
+
+
+.searchbar {
+    height:45px;
+    border:none;
+    width:500px;
+    font-size:16px;
+    outline: none;
+    background-color: transparent;
+    color: white;
+}
+
+.searchbar:focus-visible, .searchbar:focus-within {
+    background-color: transparent;
+}
+
+.voice{
+    height:20px;
+    position:relative;
+    top:5px;
+    padding: 0 8px;
+}
+
+.buttons{
+    margin-top:30px;
+}
+
+.button{
+    background-color: #303134;
+    border: 1px solid #303134;
+    border-radius: 4px;
+    color:#e8eaed;
+    font-size:15px;
+    padding: 10px 20px;
+    margin:11px 4px;
+    border-radius:4px;
+    outline:none;
+}
+
+.button:hover{
+    box-shadow: 0 1px 3px rgba(23,23,23,0.24);
+    background-color: #303134;
+    border: 1px solid #5f6368;
+    color:#e8eaed;
+}
+
+.button:focus{
+    border:1px solid #4885ed;
+    padding: 9px 19px;
+}
+
+.appbar {
+    color: #d93025;
+    font-size: 20px;
+    margin: 25px 35px;
+}
+
+.advanced-search-container {
+  max-width: 1140px;
+  min-width: 200px;
+  width: 96%;
+  margin: 40px 2% 0 45px;
+}
+
+.form-div-container {
+  clear: both;
+}
+
+.form-label-container {
+  float: left;
+  min-width: 167px;
+  width: 16%;
+  height: 42px;
+  font-size: 13px;
+  line-height: 16px;
+  vertical-align: middle;
+}
+
+.form-group {
+  height: 30px;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.form-input-container {
+  float: left;
+  min-width: 167px;
+  min-height: 41px;
+  vertical-align: middle;
+  width: 50%;
+}
+
+.form-input-div {
+  padding-right: 16px;
+}
+
+.textinput {
+  border-radius: 1px;
+  border: 1px solid gray;
+  font-size: 13px;
+  height: 25px;
+  padding: 1px 8px;
+  width: 100%;
+  text-align: left;
+  background-color: transparent;
+  color: white;
+}
+
+.form-hint-container {
+  float: left;
+  width: 50%;
+  min-width: 160px;
+  margin: 0 0 8px 1%;
+  font-size: 11px;
+  padding-left: 5px;
+  vertical-align: middle;
+  position: relative;
+}
+
+.BFlQMb {
+  font-family: monospace;
+  font-size: 11px;
+  white-space: pre;
+}
+
+.form-submit-container {
+  text-align: right;
+  float: left;
+  min-width: 167px;
+  min-height: 41px;
+  vertical-align: middle;
+  width: 50%;
+}
+
+div.form-submit-container input.dUBGpe {
+  float: right;
+  margin: 10px 0;
+  padding: 0 12px !important;
+  box-shadow: none;
+  background-color: #4d90fe;
+  background-image: -webkit-linear-gradient(top, #4d90fe, #4787ed);
+  border: 1px solid #3079ed;
+  color: white;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: bold;
+  text-align: center;
+  white-space: nowrap;
+  outline: 0;
+}
+
+div.otByu {
+  width: 100%;
+  clear: both;
+}
+
+.float-left-container {
+  float: left;
+  display: inline-block;
+  min-width: 167px;
+  width: 16%;
+  font-size: 16px;
+  min-height: 42px;
+  font-weight: 500;
+  vertical-align: middle;
+}
+
+.float-left-item {
+  height: 30px;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+div.HoCfzc {
+  float: left;
+  min-width: 167px;
+  min-height: 41px;
+  vertical-align: middle;
+  width: 50%;
+}
+
+.float-right-container {
+  float: left;
+  display: inline-block;
+  width: 33%;
+  font-size: 13px;
+  font-weight: 700;
+  color: #777;
+  padding-left: 5px;
+  vertical-align: middle;
+}
+
+.float-right-item {
+  height: 30px;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.a9nkvf {
+  color: #4285f4;
+  font: 16px/16px roboto-regular, arial, sans-serif;
+  position: relative;
+  left: 215px;
+  top: 76px;
+  white-space: nowrap;
+}

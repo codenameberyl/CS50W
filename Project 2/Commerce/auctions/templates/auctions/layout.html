@@ -1,0 +1,232 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="author" content="Untree.co">
+        <link rel="shortcut icon" href="{% static 'favicon.png' %}">
+
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,400;0,700;1,700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'auctions/css/animate.min.css' %}">
+        <link rel="stylesheet" href="{% static 'auctions/css/owl.carousel.min.css' %}">
+        <link rel="stylesheet" href="{% static 'auctions/css/owl.theme.default.min.css' %}">
+        <link rel="stylesheet" href="{% static 'auctions/css/jquery.fancybox.min.css' %}">
+        <link rel="stylesheet" href="{% static 'auctions/fonts/icomoon/style.css' %}">
+        <link rel="stylesheet" href="{% static 'auctions/fonts/flaticon/font/flaticon.css' %}">
+        <link rel="stylesheet" href="{% static 'auctions/css/aos.css' %}">
+        <link rel="stylesheet" href="{% static 'auctions/css/styles.css' %}">
+
+        <title>{% block title %}Auctions{% endblock %}</title>
+    </head>
+    <body>
+        <div class="search-form" id="search-form">
+            <form action="{% url 'search_listings' %}" method="post">
+                {% csrf_token %}
+                <input type="search" name="q" class="form-control" placeholder="Enter keyword to search...">
+                <button class="submit">
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
+                        <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+                    </svg>
+                </button>
+                <button class="button">
+                    <div class="close-search">
+                        <span class="icofont-close js-close-search"></span>
+                    </div>
+                </button>
+
+            </form>
+        </div>
+
+        <div class="site-mobile-menu">
+            <div class="site-mobile-menu-header">
+                <div class="site-mobile-menu-close">
+                    <span class="icofont-close js-menu-toggle"></span>
+                </div>
+            </div>
+            <div class="site-mobile-menu-body"></div>
+        </div>
+
+        <nav class="site-nav mb-5">
+            <div class="sticky-nav js-sticky-header">
+
+                <div class="container position-relative">
+                    <div class="site-navigation text-center dark">
+                        <a href="{% url 'index' %}" class="logo menu-absolute m-0">BerylStore<span class="text-primary">.</span></a>
+
+                        {% with request.resolver_match.url_name as url_name %}
+                            <ul class="js-clone-nav pl-0 d-none d-lg-inline-block site-menu">
+                                <li class="{% if url_name == 'index' %}active{% endif %}"><a href="{% url 'index' %}">Home</a></li>
+                                <li class="has-children {% if url_name == 'categories' or url_name == 'category_listings' %}active{% endif %}">
+                                    <a href="{% url 'categories' %}">Categories</a>
+                                    <ul class="dropdown">
+                                        {% for category in categories %}
+                                            <li><a href="{% url 'category_listings' category.id %}">{{ category.name }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                                <li class="{% if url_name == 'create_listing' %}active{% endif %}"><a href="{% url 'create_listing' %}">Create Listing</a></li>
+                                <li><a href="/admin">Admin</a></li>
+
+                            </ul>
+                        {% endwith %}
+
+
+
+
+                        <div class="menu-icons" style="display: flex; align-items: center;">
+
+                            <a href="#" class="btn-custom-search" id="btn-search">
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
+                                    <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+                                </svg>
+                            </a>
+
+                            {% if user.is_authenticated %}
+                            <ul class="user-profile site-menu" style="padding-inline-start: 0;">
+                                <li class="has-children">
+                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M13 14s1 0 1-1-1-4-6-4-6 3-6 4 1 1 1 1h10zm-9.995-.944v-.002.002zM3.022 13h9.956a.274.274 0 0 0 .014-.002l.008-.002c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664a1.05 1.05 0 0 0 .022.004zm9.974.056v-.002.002zM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                                    </svg>
+                                    <ul class="dropdown">
+                                        <li style="font-size: 14px; padding: 5px 20px; cursor: auto;">Signed in as <strong style="color: #b84592;">{{ user.username }}</strong>.</li>
+                                        <li><a href="{% url 'logout' %}">Log Out</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            {% else %}
+                            <ul class="user-profile site-menu" style="padding-inline-start: 0;">
+                                <li class="has-children">
+                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M13 14s1 0 1-1-1-4-6-4-6 3-6 4 1 1 1 1h10zm-9.995-.944v-.002.002zM3.022 13h9.956a.274.274 0 0 0 .014-.002l.008-.002c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664a1.05 1.05 0 0 0 .022.004zm9.974.056v-.002.002zM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                                    </svg>
+                                    <ul class="dropdown">
+                                        <li><a href="{% url 'login' %}">Log In</a></li>
+                                        <li><a href="{% url 'register' %}">Register</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            {% endif %}
+
+                            <a href="{% url 'watchlist' %}" class="cart">
+                                {% if user.is_authenticated %}
+                                    <span class="item-in-cart">{{ watchlist_count }}</span>
+                                {% else %}
+                                    <span class="item-in-cart">0</span>
+                                    <!-- Handle when the user is not authenticated -->
+                                {% endif %}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                                </svg>
+                            </a>
+
+                        </div>
+
+                        <a href="#" class="burger ml-auto float-right site-menu-toggle js-menu-toggle d-inline-block d-lg-none" data-toggle="collapse" data-target="#main-navbar">
+                            <span></span>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        {% block body %}
+        {% endblock %}
+
+        <div class="untree_co-section bg-light">
+            <div class="container">
+                <div class="row align-items-stretch">
+                <div class="col-12 col-sm-6 col-md-4 mb-3 mb-md-0">
+                    <div class="feature h-100">
+                    <div class="icon mb-4">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-truck" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M0 3.5A1.5 1.5 0 0 1 1.5 2h9A1.5 1.5 0 0 1 12 3.5v7h-1v-7a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5v1A1.5 1.5 0 0 1 0 10.5v-7zM4.5 11h6v1h-6v-1z"/>
+                        <path fill-rule="evenodd" d="M11 5h2.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5h-1v-1h1a.5.5 0 0 0 .5-.5V8.35a.5.5 0 0 0-.11-.312l-1.48-1.85A.5.5 0 0 0 13.02 6H12v4.5h-1V5zm-8 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 1a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+                        <path fill-rule="evenodd" d="M12 13a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 1a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+                        </svg>
+                    </div>
+                    <h3>Worldwide Delivery</h3>
+                    <p>Far far away, behind the word mountains, far from the countries.</p>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4 mb-3 mb-md-0">
+                    <div class="feature h-100">
+                    <div class="icon mb-4">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-shield-lock" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M5.443 1.991a60.17 60.17 0 0 0-2.725.802.454.454 0 0 0-.315.366C1.87 7.056 3.1 9.9 4.567 11.773c.736.94 1.533 1.636 2.197 2.093.333.228.626.394.857.5.116.053.21.089.282.11A.73.73 0 0 0 8 14.5c.007-.001.038-.005.097-.023.072-.022.166-.058.282-.111.23-.106.525-.272.857-.5a10.197 10.197 0 0 0 2.197-2.093C12.9 9.9 14.13 7.056 13.597 3.159a.454.454 0 0 0-.315-.366c-.626-.2-1.682-.526-2.725-.802C9.491 1.71 8.51 1.5 8 1.5c-.51 0-1.49.21-2.557.491zm-.256-.966C6.23.749 7.337.5 8 .5c.662 0 1.77.249 2.813.525a61.09 61.09 0 0 1 2.772.815c.528.168.926.623 1.003 1.184.573 4.197-.756 7.307-2.367 9.365a11.191 11.191 0 0 1-2.418 2.3 6.942 6.942 0 0 1-1.007.586c-.27.124-.558.225-.796.225s-.526-.101-.796-.225a6.908 6.908 0 0 1-1.007-.586 11.192 11.192 0 0 1-2.417-2.3C2.167 10.331.839 7.221 1.412 3.024A1.454 1.454 0 0 1 2.415 1.84a61.11 61.11 0 0 1 2.772-.815z"/>
+                        <path d="M9.5 6.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                        <path d="M7.411 8.034a.5.5 0 0 1 .493-.417h.156a.5.5 0 0 1 .492.414l.347 2a.5.5 0 0 1-.493.585h-.835a.5.5 0 0 1-.493-.582l.333-2z"/>
+                        </svg>
+                    </div>
+                    <h3>Secure Payments</h3>
+                    <p>Far far away, behind the word mountains, far from the countries.</p>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4 mb-3 mb-md-0">
+                    <div class="feature h-100">
+                    <div class="icon mb-4">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-counterclockwise" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M12.83 6.706a5 5 0 0 0-7.103-3.16.5.5 0 1 1-.454-.892A6 6 0 1 1 2.545 5.5a.5.5 0 1 1 .91.417 5 5 0 1 0 9.375.789z"/>
+                        <path fill-rule="evenodd" d="M7.854.146a.5.5 0 0 0-.708 0l-2.5 2.5a.5.5 0 0 0 0 .708l2.5 2.5a.5.5 0 1 0 .708-.708L5.707 3 7.854.854a.5.5 0 0 0 0-.708z"/>
+                        </svg>
+                    </div>
+                    <h3>Simple Returns</h3>
+                    <p>Far far away, behind the word mountains, far from the countries.</p>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div> <!-- /.untree_co-section -->
+
+        <div class="site-footer">
+
+            <div class="container">
+                <div class="row mt-5">
+                    <div class="col-12 text-center">
+                        <ul class="list-unstyled social">
+                            <li><a href="https://www.facebook.com/codenameberyl/"><span class="icon-facebook"></span></a></li>
+                            <li><a href="https://www.instagram.com/codenameberyl/"><span class="icon-instagram"></span></a></li>
+                            <li><a href="https://www.linkedin.com/in/codenameberyl"><span class="icon-linkedin"></span></a></li>
+                            <li><a href="https://twitter.com/codenameberyl"><span class="icon-twitter"></span></a></li>
+                        </ul>
+                    </div>
+                    <div class="col-12 text-center copyright">
+                        <p>&copy; Codename Beryl <script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; Designed with love by <a href="https://untree.co">Untree.co</a> <!-- License information: https://untree.co/license/ -->
+                        </p>
+
+                    </div>
+                </div>
+            </div> <!-- /.container -->
+        </div> <!-- /.site-footer -->
+
+        <div id="overlayer"></div>
+        <div class="loader">
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+
+        <script src="{% static 'auctions/js/jquery-3.4.1.min.js' %}"></script>
+        <script src="{% static 'auctions/js/popper.min.js' %}"></script>
+        <script src="{% static 'auctions/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'auctions/js/owl.carousel.min.js' %}"></script>
+        <script src="{% static 'auctions/js/jquery.animateNumber.min.js' %}"></script>
+        <script src="{% static 'auctions/js/jquery.waypoints.min.js' %}"></script>
+        <script src="{% static 'auctions/js/jquery.fancybox.min.js' %}"></script>
+        <script src="{% static 'auctions/js/jquery.sticky.js' %}"></script>
+        <script src="{% static 'auctions/js/aos.js' %}"></script>
+        <script src="{% static 'auctions/js/custom.js' %}"></script>
+
+    </body>
+</html>
