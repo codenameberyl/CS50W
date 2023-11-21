@@ -17,7 +17,7 @@ For Reference Only
 </pre>
 
 <a href="https://certificates.cs50.io/a857c291-72bf-4d5f-88a7-8d815fb72367.png">
-  <img src="https://certificates.cs50.io/a857c291-72bf-4d5f-88a7-8d815fb72367.png" alt="cs50p-certificates" />
+  <img src="https://certificates.cs50.io/a857c291-72bf-4d5f-88a7-8d815fb72367.png" alt="cs50w-certificates" />
 </a>
 
 ## Table of Contents
