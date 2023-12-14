@@ -2,7 +2,7 @@
 
 ## Achievement
 
-- [x] Mail
+- ✅ Mail
 
 
 ## Description

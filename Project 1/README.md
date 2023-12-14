@@ -2,7 +2,7 @@
 
 ## Achievement
 
-- [x] Wiki
+- ✅ Wiki
 
 
 ## Description
