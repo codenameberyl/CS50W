@@ -256,6 +256,16 @@
     box-shadow: 0 0 0 1px rgb(140 140 140/.2);
 }
 
+.no-main-post {
+    width: 65vw;
+}
+
+@media only screen and (max-width:767px) {
+    .no-main-post {
+        width: 100%;
+    }
+}
+
 .user-info {
     display: flex;
     flex-direction: row;
