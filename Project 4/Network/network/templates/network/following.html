@@ -1,0 +1,375 @@
+{% extends "network/layout.html" %}
+
+{% load static %}
+{% load humanize %}
+
+{% block title %}Following | Social Network{% endblock %}
+
+{% block styles %}
+    <link href="{% static 'network/css/index.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <div class="container0">
+        <div class="container">
+
+
+            <!-- --------------------------------Left sidebar start---------------------------- -->
+
+            <div class="left-sidebar">
+                <div class="profile-box">
+                    <img src="{% static 'network/img/background.svg' %}" alt="background">
+                    <div class="profile-info">
+                        {% if user.is_authenticated %}
+                            <img src="{{ user.profile_image.url }}" alt="{{ user }}">
+                            <a href="{% url 'profile' user %}">
+                            {% if user.first_name %}
+                                <h1>{{ user.first_name }} {% if user.last_name %}{{ user.last_name }}{% endif %}</h1>
+                            {% else %}
+                                <h1>{{ user }}</h1>
+                            {% endif %}
+                            </a>
+
+                            {% if user.about %}
+                            <h2>{{ user.about }}</h2>
+                            {% endif %}
+                            <ul>
+                                <li>
+                                    <p>Followers </p><span>{{ followers_count }}</span>
+                                </li>
+                                <li>
+                                    <p>Following </p><span>{{ following_count }}</span>
+                                </li>
+                            </ul>
+                        {% else %}
+                            <img src="{% static 'network/img/default.png' %}" alt="default">
+                            <br>
+                            <a href="{% url 'login' %}"><button>Please Login To View Your Profile</button></a>
+                            <br>
+                        {% endif %}
+                    </div>
+                    {% if user.is_authenticated %}
+                    <div class="my-items">
+                        <a href="#" style="padding: 12px">
+                            <img src="{% static 'network/img/bookmark-fill-small.svg' %}" alt="Bookmark" style="width: 16px; height: 16px; margin-right: 8px;">
+                            <span>My Items</span>
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="activity" style="padding-top: 8px">
+                    <div>
+                        <section style="display: flex; align-items: center;">
+                            <header class="left-sidebar-header" style="display: block; margin-right: 8px; padding-left: 12px; text-align: left;">
+                                <h2 style="padding: 8px 0; font-size: 12px; color: #0a66c2; font-weight: 600;">Groups</h2>
+                            </header>
+                            <div></div>
+                        </section>
+                    </div>
+                    <div>
+                        <section style="display: flex; align-items: center;">
+                            <header class="left-sidebar-header" style="display: block; margin-right: 8px; padding-left: 12px; text-align: left;">
+                                <h2 style="padding: 8px 0; font-size: 12px; color: #0a66c2; font-weight: 600;">Events</h2>
+                            </header>
+                            <div style="display: flex;">
+                                <button class="left-sidebar-button">
+                                    <img src="{% static 'network/img/add-small-black.svg' %}" alt="add-small-black" width="16" height="16">
+                                </button>
+                            </div>
+                        </section>
+                    </div>
+                    <div>
+                        <section style="display: flex; align-items: center;">
+                            <header class="left-sidebar-header" style="display: block; margin-right: 8px; padding-left: 12px; text-align: left;">
+                                <h2 style="padding: 8px 0; font-size: 12px; color: #0a66c2; font-weight: 600;">Followed Hashtags</h2>
+                            </header>
+                            <div></div>
+                        </section>
+                    </div>
+                    <a href="javascript:void(0)" style="color: rgb(0 0 0/.6); text-decoration: none; padding: 1.2rem; display: flex; align-items: center; justify-content: center; border-top: 1px solid rgb(140 140 140/.2);">Discover more</a>
+                </div>
+            </div>
+
+
+            <!-- --------------------------------Main content start---------------------------- -->
+
+            <div class="main-content">
+
+
+                <!-- ---------------------Create post section----------------------- -->
+
+                <form action="{% url 'index' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="create-post" style="margin-bottom: 16px">
+                        <div class="img-write-post" style="margin: 16px">
+                            <h3>Following</h3>
+                        </div>
+                    </div>
+
+                    <div class="create-post">
+                        <div class="img-write-post">
+                            <div class="profile-img">
+                                {% if user.is_authenticated %}
+                                    <a href="#"><img src="{{ user.profile_image.url }}" alt="Profile"></a>
+                                {% else %}
+                                    <a href="#"><img src="{% static 'network/img/default.png' %}" alt="Profile"></a>
+                                {% endif %}
+                            </div>
+                            <div class="writepost">
+                                <textarea name="content" id="content" placeholder="Start a post" rows="1" required></textarea>
+                            </div>
+                        </div>
+                        <div class="options">
+                            <div class="post-options">
+                                <label for="mediaInput" class="custom-file-input">
+                                    <img src="{% static 'network/img/image-medium.svg' %}" alt="Media Icon">
+                                    <span>Media</span>
+                                </label>
+                                <input type="file" id="mediaInput" name="media" style="display: none;">
+                            </div>
+                            <div class="post-options">
+                                <a href="javascript:void(0)">
+                                    <img src="{% static 'network/img/calendar-medium.svg' %}">
+                                    <span style="font-size: 0.875rem;">Event</span>
+                                </a>
+                            </div>
+                            <div class="post-options">
+                                <a href="javascript:void(0)">
+                                    <img src="{% static 'network/img/content-align-left-medium.svg' %}">
+                                    <span style="font-size: 0.875rem;">Write article</span>
+                                </a>
+                            </div>
+                            {% if user.is_authenticated %}
+                                <button class="special-button" type="submit">Post</button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </form>
+
+
+
+                <!-- ---------------------Main post section----------------------- -->
+                {% for post in posts.object_list %}
+                    <div class="main-post">
+                        <div class="user-info">
+                            <img src="{{ post.user.profile_image.url }}">
+                            <div class="user-info-span">
+                                <a href="{% url 'profile' post.user %}">
+                                    <span  pan class="post-name" style="font-size: 18px;">{{ post.user }}</span>
+                                </a>
+                                {% if post.user.about %}
+                                    <span>{{ post.user.about }}</span>
+                                {% endif %}
+                                <span>{{ post.timestamp|naturaltime }}</span>
+                            </div>
+                        </div>
+                        <div class="post-article">
+                            {{ post.content }}
+                        </div>
+                        <div class="post-img">
+                            {% if post.image %}
+                                <img src="{{ post.image.url }}">
+                            {% endif %}
+                        </div>
+                        <div class="reactions">
+                            <span id="like-count-{{ post.id }}">{{ post.likes.count }} Likes</span>
+                        </div>
+                        <div class="feed-options">
+                            {% if user.is_authenticated %}
+                                <a href="{% url 'like-toggle' post_id=post.id %}" class="like-link" data-post-id="{{ post.id }}">
+                                    <img src="{% if post.id in liked_posts %}{% static 'network/img/thumbs-up-fill-medium.svg' %}{% else %}{% static 'network/img/thumbs-up-outline-medium.svg' %}{% endif %}">
+                                </a>
+                            {% else %}
+                                <a href="{% url 'login' %}">
+                                    <img src="{% static 'network/img/thumbs-up-outline-medium.svg' %}">
+                                </a>
+                            {% endif %}
+                            <a href="javascript:void(0)"><img src="{% static 'network/img/comment-medium.svg' %}"><span>Comment</span></a>
+                            <a href="javascript:void(0)"><img src="{% static 'network/img/repost-medium.svg' %}"><span>Repost</span></a>
+                            <a href="javascript:void(0)"><img src="{% static 'network/img/send-privately-medium.svg' %}"><span>Send</span></a>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="main-post no-main-post">
+                        <div class="post-article">
+                            <h2>No posts available.</h2>
+                        </div>
+                    </div>
+                {% endfor %}
+
+                <div class="pagination">
+                    {% if posts.has_previous %}
+                        <a href="?page={{ posts.previous_page_number }}">
+                            <button class="prev">
+                                <img src="{% static 'network/img/arrow-left-small.svg' %}"> prev
+                            </button>
+                        </a>
+                    {% else %}
+                        <button class="prev no-link">
+                            <img src="{% static 'network/img/arrow-left-small-nolink.svg' %}"> prev
+                        </button>
+                    {% endif %}
+                    <ul class="">
+                        {% for num in posts.paginator.page_range %}
+                            {% if num >= 1 and num <= 3 and posts.number <= 3 %}
+                                <li class="link {% if num == posts.number %}active{% endif %}">
+                                    <a href="?page={{ num }}">
+                                        {{ num }}
+                                    </a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if posts.number >= 4 %}
+                            <li class="link">
+                                <a href="?page=1">
+                                    1
+                                </a>
+                            </li>
+                            <li class="link">
+                                ...
+                            </li>
+                            <li class="link active">
+                                <a href="?page={{ posts.number }}">
+                                    {{ posts.number }}
+                                </a>
+                            </li>
+                            {% if posts.number != posts.paginator.num_pages %}
+                                <li class="link">
+                                    ...
+                                </li>
+                                <li class="link">
+                                    <a href="?page={{ posts.paginator.num_pages }}">
+                                        {{ posts.paginator.num_pages }}
+                                    </a>
+                                </li>
+                            {% endif %}
+                        {% endif %}
+                    </ul>
+                    {% if posts.has_next %}
+                        <a href="?page={{ posts.next_page_number }}">
+                            <button class="next">
+                                next <img src="{% static 'network/img/arrow-right-small.svg' %}">
+                            </button>
+                        </a>
+                    {% else%}
+                        <button class="next no-link">
+                            next <img src="{% static 'network/img/arrow-right-small-nolink.svg' %}">
+                        </button>
+                    {% endif %}
+                </div>
+            </div>
+
+
+            <!-- --------------------------------Right sidebar start---------------------------- -->
+
+
+            <div class="right-sidebar">
+
+                <div class="linkedin-news">
+                    <div class="heading">
+                        <h2>Add to your feed</h2>
+                        <img src="{% static 'network/img/signal-notice-small.svg' %}" alt="signal-notice-small">
+                    </div>
+                    <div class="news-list">
+                        <ul>
+                            <li>
+                                <a href="javascript:void(0)" style="margin-right: 12px; flex-shrink: 0; align-self: flex-start;">
+                                    <img width="48" height="48" loading="lazy" src="{% static 'network/img/profile_images/ozoemena-nnanna.jpg' %}" alt="Ozoemena Nnanna" style="border-radius: 50%;">
+                                </a>
+                                <div>
+                                    <div style="display: block; max-height: 32px; margin-bottom: 6px;">
+                                        <a href="javascript:void(0)">
+                                            <p style="word-wrap: break-word; word-break: break-word">
+                                                <span style="font-size: 14px; font-weight: 600; color: #000000E6;">Ozoemena Nnanna</span>
+                                            </p>
+                                            <div>
+                                                <p style="font-size: 12px; color: #00000099; font-weight: 400; text-overflow: ellipsis;">Senior Software Engineer</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <button class="special-button">
+                                            <img src="{% static 'network/img/add-small-black.svg' %}" alt="add-small-black" width="16" height="16">
+                                            <span>Follow</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)" style="margin-right: 12px; flex-shrink: 0; align-self: flex-start;">
+                                    <img width="48" height="48" loading="lazy" src="{% static 'network/img/profile_images/roger-crosslin.jpg' %}" alt="Roger Crosslin" style="border-radius: 50%;">
+                                </a>
+                                <div style="width: 100%">
+                                    <div style="display: block; max-height: 32px; margin-bottom: 6px; overflow: hidden;">
+                                        <a href="javascript:void(0)">
+                                            <p style="word-wrap: break-word; word-break: break-word">
+                                                <span style="font-size: 14px; font-weight: 600; color: #000000E6;">Roger Crosslin</span>
+                                            </p>
+                                            <div>
+                                                <p style="font-size: 12px; color: #00000099; font-weight: 400; text-overflow: ellipsis;">Web Developer</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <button class="special-button">
+                                            <img src="{% static 'network/img/add-small-black.svg' %}" alt="add-small-black" width="16" height="16">
+                                            <span>Follow</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)" style="margin-right: 12px; flex-shrink: 0; align-self: flex-start;">
+                                    <img width="48" height="48" loading="lazy" src="{% static 'network/img/profile_images/sean-simpson.jpg' %}" alt="Sean Simpson" style="border-radius: 50%;">
+                                </a>
+                                <div>
+                                    <div style="display: block; max-height: 32px; margin-bottom: 6px; overflow: hidden;">
+                                        <a href="javascript:void(0)">
+                                            <p style="word-wrap: break-word; word-break: break-word">
+                                                <span style="font-size: 14px; font-weight: 600; color: #000000E6;">Sean Simpson</span>
+                                            </p>
+                                            <div>
+                                                <p style="font-size: 12px; color: #00000099; font-weight: 400; text-overflow: ellipsis;">Full-Stack Developer</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <button class="special-button">
+                                            <img src="{% static 'network/img/add-small-black.svg' %}" alt="add-small-black" width="16" height="16">
+                                            <span>Follow</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <a href="javascript:void(0)" style="display: flex; color: rgb(0 0 0/.6); font-size: 14px; font-weight: 600; text-decoration: none; padding: 2px 8px;">
+                            View all recommendations <img src="{% static 'network/img/arrow-right-small-nolink.svg' %}" alt="arrow-right-small-nolink" width="16" height="16" style="margin-left: 5px; margin-top: 4px;">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer sticky">
+                    <div class="useful-links">
+                        <span>About</span>
+                        <span>Accessibility</span>
+                        <span>Help Center</span>
+                        <span>Privacy & Terms <img src="{% static 'network/img/caret-small.svg' %}" width="12.8" height="12.8"></span>
+                        <span>Ad Choices</span>
+                        <span>Advertising</span>
+                        <span>Business services <img src="{% static 'network/img/caret-small.svg' %}" width="12.8" height="12.8"></span>
+                        <span>Get the LinkedIn app</span>
+                        <span>More</span>
+                    </div>
+                    <div class="footer-tag">
+                        <img src="{% static 'network/img/linkedin-blue.svg' %}">
+                        LinkedIn Corporation &copy; 2024
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

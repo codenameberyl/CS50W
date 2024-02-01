@@ -1,0 +1,132 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="icon" href="{% static 'network/favicon.ico' %}" sizes="32x32"/>
+        <link href="{% static 'network/css/styles.css' %}" rel="stylesheet">
+        {% block styles %}{% endblock %}
+    </head>
+    <body>
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-left">
+                    <div class="logo">
+                        <a href="{% url 'index' %}">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34 34" data-supported-dps="34x34" width="34" height="34" focusable="false">
+                                <g transform="scale(.7083)" fill="none" fill-rule="evenodd">
+                                    <rect class="bug-text-color" fill="#FFF" x="1" y="1" width="46" height="46" rx="4"></rect>
+                                    <path d="M0 4.01A4.01 4.01 0 014.01 0h39.98A4.01 4.01 0 0148 4.01v39.98A4.01 4.01 0 0143.99 48H4.01A4.01 4.01 0 010 43.99V4.01zM19 18.3h6.5v3.266C26.437 19.688 28.838 18 32.445 18 39.359 18 41 21.738 41 28.597V41.3h-7V30.159c0-3.906-.937-6.109-3.32-6.109-3.305 0-4.68 2.375-4.68 6.109V41.3h-7v-23zM7 41h7V18H7v23zm8-30.5a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0z" class="background" fill="#0077B5"></path>
+                                </g>
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="searchbar">
+                        <input type="text" name="Search" id="Searchbar" placeholder="Search">
+                    </div>
+                </div>
+
+                <div class="nav-right">
+                    {% with request.resolver_match.url_name as url_name %}
+                        <ul>
+                            <li class="{% if url_name == 'index' %}active-link{% endif %}"><a href="{% url 'index' %}">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" class="mercado-match" width="24" height="24" focusable="false">
+                                    <path d="M23 9v2h-2v7a3 3 0 01-3 3h-4v-6h-4v6H6a3 3 0 01-3-3v-7H1V9l11-7 5 3.18V2h3v5.09z"></path>
+                                </svg>
+                                {% comment %} <img src="Img/home.png" class="menu-png"> {% endcomment %}
+                                    <span>Home</span></a></li>
+
+                            <li class="{% if url_name == 'following' %}active-link{% endif %}"><a href="{% url 'following' %}">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" class="mercado-match" width="24" height="24" focusable="false">
+                                    <path d="M12 16v6H3v-6a3 3 0 013-3h3a3 3 0 013 3zm5.5-3A3.5 3.5 0 1014 9.5a3.5 3.5 0 003.5 3.5zm1 2h-2a2.5 2.5 0 00-2.5 2.5V22h7v-4.5a2.5 2.5 0 00-2.5-2.5zM7.5 2A4.5 4.5 0 1012 6.5 4.49 4.49 0 007.5 2z"></path>
+                                </svg> <span>My Network</span></a></li>
+
+                            <li><a href="{% url 'index' %}">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" class="mercado-match" width="24" height="24" focusable="false">
+                                    <path d="M17 6V5a3 3 0 00-3-3h-4a3 3 0 00-3 3v1H2v4a3 3 0 003 3h14a3 3 0 003-3V6zM9 5a1 1 0 011-1h4a1 1 0 011 1v1H9zm10 9a4 4 0 003-1.38V17a3 3 0 01-3 3H5a3 3 0 01-3-3v-4.38A4 4 0 005 14z"></path>
+                                </svg> <span>Jobs</span></a></li>
+
+                            <li><a href="{% url 'index' %}">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" class="mercado-match" width="24" height="24" focusable="false">
+                                    <path d="M16 4H8a7 7 0 000 14h4v4l8.16-5.39A6.78 6.78 0 0023 11a7 7 0 00-7-7zm-8 8.25A1.25 1.25 0 119.25 11 1.25 1.25 0 018 12.25zm4 0A1.25 1.25 0 1113.25 11 1.25 1.25 0 0112 12.25zm4 0A1.25 1.25 0 1117.25 11 1.25 1.25 0 0116 12.25z"></path>
+                                </svg> <span>Messaging</span></a></li>
+
+                            <li><a href="{% url 'index' %}">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" class="mercado-match" width="24" height="24" focusable="false">
+                                    <path d="M22 19h-8.28a2 2 0 11-3.44 0H2v-1a4.52 4.52 0 011.17-2.83l1-1.17h15.7l1 1.17A4.42 4.42 0 0122 18zM18.21 7.44A6.27 6.27 0 0012 2a6.27 6.27 0 00-6.21 5.44L5 13h14z"></path>
+                                </svg>
+                                    <span>Notifications</span></a>
+                            </li>
+                            {% if user.is_authenticated %}
+                                <li class="{% if url_name == 'profile' %}active-link{% endif %}"><a href="{% url 'profile' user %}">
+                                    <img src="{{ user.profile_image.url }}" class="menu-png profile-image" data-user-id="{{ user.id }}" id="profile">
+                                    <span style="display: flex; align-items: center;">Me <img src="{% static 'network/img/caret-small.svg' %}" width="16" height="16"></span></a>
+                                </li>
+                            {% else %}
+                                <li style="min-width: 10px;"></li>
+                            {% endif %}
+
+                            {% if user.is_authenticated %}
+                                <li id="business-border"><a href="{% url 'index' %}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" class="mercado-match" width="24" height="24" focusable="false">
+                                        <path d="M3 3h4v4H3zm7 4h4V3h-4zm7-4v4h4V3zM3 14h4v-4H3zm7 0h4v-4h-4zm7 0h4v-4h-4zM3 21h4v-4H3zm7 0h4v-4h-4zm7 0h4v-4h-4z"></path>
+                                    </svg> <span style="flex-d">For Business</span></a>
+                                </li>
+                                <li id="Premium-link"><a href="{% url 'index' %}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" width="24" height="24" focusable="false">
+                                        <path d="M12 17.13a5.13 5.13 0 010-10.25V4a8 8 0 108 8h-2.87A5.13 5.13 0 0112 17.13z" style="isolation:isolate" opacity=".75"></path>
+                                        <path d="M23.31 6.34l-4.95-.71-.7-4.94-3.54 3.53.35 2.48-3.89 3.89a2 2 0 002.83 2.83l3.89-3.89 2.48.35z"></path>
+                                    </svg> <span style="text-decoration: none;">Advertise</span></a></li>
+                            {% else %}
+                                <li id="business-border"><a href="{% url 'login' %}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" class="mercado-match" width="24" height="24" focusable="false">
+                                        <path d="M3 3h4v4H3zm7 4h4V3h-4zm7-4v4h4V3zM3 14h4v-4H3zm7 0h4v-4h-4zm7 0h4v-4h-4zM3 21h4v-4H3zm7 0h4v-4h-4zm7 0h4v-4h-4z"></path>
+                                    </svg> <span style="flex-d">Login</span></a>
+                                </li>
+                                <li id="Premium-link"><a href="{% url 'register' %}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" width="24" height="24" focusable="false">
+                                        <path d="M12 17.13a5.13 5.13 0 010-10.25V4a8 8 0 108 8h-2.87A5.13 5.13 0 0112 17.13z" style="isolation:isolate" opacity=".75"></path>
+                                        <path d="M23.31 6.34l-4.95-.71-.7-4.94-3.54 3.53.35 2.48-3.89 3.89a2 2 0 002.83 2.83l3.89-3.89 2.48.35z"></path>
+                                    </svg> <span style="text-decoration: none;">Register</span></a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    {% endwith %}
+                </div>
+            </div>
+        </nav>
+
+        {% block body %}
+        {% endblock %}
+
+        {% if user.is_authenticated %}
+            <div class="messaging">
+                <div class="dm-me">
+                    <div style="display: flex; position: relative;">
+                        <img class="dp profile-image" data-user-id="{{ user.id }}" src="{{ user.profile_image.url }}">
+                        <div class="presence"></div>
+                    </div>
+                    <p style="color: #00000099; font-size: 14px; font-weight: bold; margin-left: 10px;">Messaging</p>
+                </div>
+
+                <div class="icon-group">
+                    <img class="icon" src="{% static 'network/img/overflow-web-ios-small.svg' %}">
+                    <img class="icon" src="{% static 'network/img/compose-small.svg' %}">
+                    <img class="icon" src="{% static 'network/img/chevron-up-small.svg' %}">
+                </div>
+            </div>
+        {% endif %}
+
+        {% block scripts %}
+            <script src="{% static 'network/js/like.js' %}"></script>
+            <script src="{% static 'network/js/edit_post.js' %}"></script>
+            <script src="{% static 'network/js/edit_profile.js' %}"></script>
+            <script src="{% static 'network/js/update_images.js' %}"></script>
+        {% endblock %}
+    </body>
+
+
+</html>

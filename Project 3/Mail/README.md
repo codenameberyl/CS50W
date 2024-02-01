@@ -1,6 +1,6 @@
 # Mail
 
-This Python program is an implementation to [CS50’s Web Programming with Python and JavaScript Project 3 - Mail](https://cs50.harvard.edu/web/2020/projects/2/commerce/).
+This Python program is an implementation to [CS50’s Web Programming with Python and JavaScript Project 3 - Mail](https://cs50.harvard.edu/web/2020/projects/3/mail/).
 
 ![Mail](https://i.imgur.com/ga7kxNQ.png)
 
@@ -98,4 +98,8 @@ To complete the implementation, the following requirements was fulfilled:
 
 5. **Reply:**
    - Enable users to reply to an email, pre-filling recipient, subject, and body fields.
+
+## HTML Template
+
+- Gmail Clone: [Gmail Clone](https://github.com/HabibOsaye/gmail-clone)
 
